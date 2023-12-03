@@ -1,37 +1,18 @@
 with open('input.txt') as file:
-    input_data = file.read().split()
+    input_data = file.read()
 
-total_sum = 0
+input_data = input_data[::2] + ' ' + input_data[1::2]
 
-num2words = {
-    'zero': '0',
-    'one': '1',
-    'two': '2',
-    'three': '3',
-    'four': '4',
-    'five': '5',
-    'six': '6',
-    'seven': '7',
-    'eight': '8',
-    'nine': '9'
-}
+houses = {(0, 0)}
+santa_position = [0, 0]
+axis = "><^v"
 
-key_size = len(max(num2words, key=len))
+for move in input_data:
+    if move == ' ':
+        santa_position = [0, 0]
+        continue
+    index = axis.index(move)
+    santa_position[index // 2] += (-1) ** index
+    houses.add(tuple(santa_position))
 
-
-def get_digits(data):
-    digits = []
-    for position, character in enumerate(data):
-        if character.isdigit():
-            digits.append(character)
-        for number in num2words:
-            if data[position:position + key_size].startswith(number):
-                digits.append(num2words[number])
-    return digits
-
-
-for case in input_data:
-    digits = get_digits(case)
-    total_sum += int(digits[0] + digits[-1])
-
-print(total_sum)
+print(len(houses))
