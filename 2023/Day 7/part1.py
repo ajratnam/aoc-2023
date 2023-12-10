@@ -5,11 +5,7 @@ with open('input.txt') as file:
 
 card_strength = '23456789TJQKA'
 total_sum = 0
-
-
-def get_strength(card):
-    return sorted(Counter(card[0]).values(), reverse=True), *map(card_strength.index, card[0])
-
+get_strength = lambda card: (sorted(Counter(card[0]).values())[::-1], *map(card_strength.index, card[0]))
 
 order = sorted(input_data, key=get_strength)
 for rank, (_, bid) in enumerate(order, 1):
