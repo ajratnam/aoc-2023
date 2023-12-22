@@ -1,7 +1,6 @@
 with open('input.txt') as file:
-    input_data = file.read()
+    seeds, *almanac = file.read().split('\n\n')
 
-seeds, *almanac = input_data.split('\n\n')
 locations = [*map(int, seeds.split()[1:])]
 
 for conversion_map in almanac:
